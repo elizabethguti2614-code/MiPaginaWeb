@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contacto</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+      background-color: #fff;
+      color: #222;}
+
+    h1 {
+      text-align: left;
+      margin-bottom: 10px;}
+
+    a {
+      color: #6a1b9a;
+      text-decoration: none;}
+
+    a:hover {
+      text-decoration: underline;}
+
+    form {
+      width: 100%;
+      max-width: 500px;
+      margin: 0 auto;}
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 10px;}
+
+    input, input {
+      width: 100%;
+      padding: 6px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;}
+
+    .radio-group, .checkbox-group {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+      margin-top: 10px;}
+
+    .radio-group label, .checkbox-group label {
+      display: inline-block;
+      margin-right: 10px;
+      font-weight: normal;}
+
+    button {
+      margin-top: 15px;
+      padding: 8px 15px;
+      background-color: #6a1b9a;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;}
+
+    button:hover {
+      background-color: #4a0072;}
+
+    table {
+      width: 100%;
+      max-width: 600px;
+      border-collapse: collapse;
+      margin: 30px auto;}
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;}
+
+    th {
+      background-color: #f4f4f4;
+      width: 40%;}
+
+  </style>
+</head>
+<body>
+
+  <h1>Contacto</h1>
+  <a href="../index.html">Volver a la página principal</a>
+
+  <form>
+    <!--nombre-->
+    <label for="nombre">Nombre (requerido):</label>
+    <input type="text" id="nombre" name="nombre" maxlength="20" required>
+
+    <!--apellido-->
+    <label for="apellido">Apellido:</label>
+    <input type="text" id="apellido" name="apellido" maxlength="20">
+
+    <!--email-->
+    <label for="email">Email (requerido):</label>
+    <input type="email" id="email" name="email" required>
+
+    <!--telefono-->
+    <label for="telefono">Teléfono:</label>
+    <input type="tel" id="telefono" name="telefono" placeholder="Ingrese su teléfono"
+           onfocus="this.placeholder=''" onblur="this.placeholder='Ingrese su teléfono'">
+
+    <!--edad-->
+    <label for="edad">Edad:</label>
+    <input type="number" id="edad" name="edad" min="16" max="120">
+
+    <!--direcciomn-->
+    <label for="direccion">Dirección:</label>
+    <input id="direccion" name="direccion"></input>
+
+    <!--provincia-->
+    <label for="provincia">Provincia:</label>
+    <input list="provincias" id="provincia" name="provincia">
+    <datalist id="provincias">
+      <option value="Neuquén">
+      <option value="Río Negro">
+      <option value="Chubut">
+      <option value="Santa Cruz">
+      <option value="Tierra del Fuego">
+    </datalist>
+
+    <!--codigo postal-->
+    <label for="codigo_postal">Código Postal:</label>
+    <input type="text" id="codigo_postal" name="codigo_postal" 
+           pattern="[A-Z][0-9]{4}[A-Z]{3}" title="Formato: A1234ABC">
+
+    <!--metodo de contacto-->
+    <div class="radio-group">
+      <label>Método preferido de contacto:</label><br>
+      <input type="radio" id="correo_e" name="metodo" value="correo_e" checked> 
+      <label for="correo_e">Correo electrónico</label>
+
+      <input type="radio" id="correo_p" name="metodo" value="correo_p"> 
+      <label for="correo_p">Correo postal</label>
+
+      <input type="radio" id="telefono_m" name="metodo" value="telefono_m"> 
+      <label for="telefono_m">Teléfono</label>
+    </div>
+
+    <!--suscripcion-->
+    <div class="checkbox-group">
+      <label>Tipo de suscripción:</label><br>
+      <input type="checkbox" id="noticias" name="suscripcion" value="noticias"> 
+      <label for="noticias">Noticias</label>
+
+      <input type="checkbox" id="promociones" name="suscripcion" value="promociones"> 
+      <label for="promociones">Promociones</label>
+
+      <input type="checkbox" id="alertas" name="suscripcion" value="alertas" checked> 
+      <label for="alertas">Alertas</label>
+
+      <input type="checkbox" id="eventos" name="suscripcion" value="eventos"> 
+      <label for="eventos">Eventos</label>
+    </div>
+
+    <!--boton-->
+    <button type="button" onclick="cargarDatos()">Cargar</button>
+  </form>
+
+  <hr>
+
+  <table border="1">
+    <tr><th>Nombre</th><td id="tNombre"></td></tr>
+    <tr><th>Apellido</th><td id="tApellido"></td></tr>
+    <tr><th>Email</th><td id="tEmail"></td></tr>
+    <tr><th>Teléfono</th><td id="tTelefono"></td></tr>
+    <tr><th>Edad</th><td id="tEdad"></td></tr>
+    <tr><th>Dirección</th><td id="tDireccion"></td></tr>
+    <tr><th>Provincia</th><td id="tProvincia"></td></tr>
+    <tr><th>Código Postal</th><td id="tCodigoPostal"></td></tr>
+    <tr><th>Método de contacto</th><td id="tMetodo"></td></tr>
+    <tr><th>Suscripción</th><td id="tSuscripcion"></td></tr>
+  </table>
+
+  <script>
+    function cargarDatos() {
+      // Obtiene los valores del formulario
+      document.getElementById("tNombre").textContent = document.getElementById("nombre").value;
+      document.getElementById("tApellido").textContent = document.getElementById("apellido").value;
+      document.getElementById("tEmail").textContent = document.getElementById("email").value;
+      document.getElementById("tTelefono").textContent = document.getElementById("telefono").value;
+      document.getElementById("tEdad").textContent = document.getElementById("edad").value;
+      document.getElementById("tDireccion").textContent = document.getElementById("direccion").value;
+      document.getElementById("tProvincia").textContent = document.getElementById("provincia").value;
+      document.getElementById("tCodigoPostal").textContent = document.getElementById("codigoPostal").value;
+      document.getElementById("tMetodo").textContent = document.getElementById("metodo").value;
+      document.getElementById("tSuscripcion").textContent =
+        document.getElementById("suscripcion").checked ? "Sí" : "No";
+    }
+  </script>
+<a href="../index.html">⬅ Volver al Inicio</a>
+
+</body>
+</html>
